@@ -1,30 +1,27 @@
 ## Simple-Behavioral-Discounting-Model
 
-This project models how people value future rewards less than immediate ones — a behavior called time discounting. It helps explain why we procrastinate or choose quick pleasures over long-term benefits. For people with ADHD, this effect can be stronger, making it harder to stay focused on delayed goals. The model sums the expected value of an action at different future times, weighted by how important that time feels. It helps compare actions and design ways to motivate better choices and reduce procrastination, especially for those with attention challenges.
+This project models how people value future rewards less than immediate ones — a behavior known as **time discounting**. It helps explain why we procrastinate or choose quick pleasures over long-term benefits. For people with **ADHD**, this effect can be stronger, making it harder to stay focused on delayed goals. The model sums the expected value of an action at different future times, weighted by how important that time feels. It helps compare actions and design ways to motivate better choices and reduce procrastination, especially for those with attention challenges.
 
-### Key Components
+### 1. Key Concept
 
-- **W(t)**: Discount weight function  
-  Describes how much a person values events at future time $$t$$.
-
-- **V(t)**: Expected value function  
-  Represents the subjective utility ("pleasure") from a behavior at time $$t$$.
-
-### Core Formula
-
+The model computes a weighted sum of future subjective values, the total behavioral utility, to evaluate how appealing a behavior is from the present perspective.
 The total behavioral utility is given by:
 
 $$U = \int_{t_0}^{\infty} W(t) \cdot V(t) \, dt$$
 
-where $$U$$ is the total utility accumulated from the present time $$t_0$$ onward.
+- **U** is the total utility accumulated from the present time $$t_0$$ onward.
+- **W(t)**: Discount weight function  
+  Describes how much a person values events at future time $$t$$.
+- **V(t)**: Expected value function  
+  Represents the subjective utility ("pleasure") from a behavior at time $$t$$.
 
 ---
 
-### 1. Modeling Goal
+### 2. Model Components
 
 We use classic function forms for interpretability.
 
-#### (a) Discount Weight Function $$W(t)$$
+#### 2.1 Discount Weight Function $$W(t)$$
 
 Using **hyperbolic discounting**, commonly found in behavioral economics:
 
@@ -38,7 +35,7 @@ Where:
 > Exponential discounting:  
 > $$W(t) = e^{-r t}$$
 
-#### (b) Expected Value Function $$V(t)$$
+#### 2.2 Expected Value Function $$V(t)$$
 
 Two common choices:
 
@@ -48,8 +45,9 @@ Two common choices:
 
 ---
 
-### 2. Model Example
+### 3. Model Example
 
+#### 3.1 Constant V(t) - Divergence
 Assume:
 
 - $$V(t) = V_0$$
@@ -72,9 +70,7 @@ $$\ln(\infty) = \infty$$
 Total utility becomes infinite if future value is constant and discounting is too slow.  
 This reflects the **“procrastination trap”** — future rewards are always tempting but never acted upon.
 
----
-
-### 3. Fixing the Model (Ensuring Convergence)
+#### 3.2 Value with Decay - Convergence
 
 Use an exponentially decreasing value function:
 
@@ -110,7 +106,7 @@ This integral captures the **weighted sum of future benefits**, discounted by ho
 
 ---
 
-### Example: Behavior A vs Behavior B
+### 5. Real Life Example: Behavior A vs Behavior B
 
 | Behavior | Description         | V(t) Profile |
 |----------|---------------------|--------------------|
@@ -121,7 +117,7 @@ By comparing `U_A` and `U_B`, we can infer which action we'd rationally prefer �
 
 ---
 
-### Scaling to Multiple Behaviors
+### 6. Scaling to Multiple Behaviors
 
 To compare **more than two behaviors**, we upgrade the model to **optimal behavior selection**:
 
@@ -134,39 +130,37 @@ Where:
 
 ---
 
-## Enhancing Behavioral Utility via Scaling and Shifting $$V(t)$$
+### 7. Enhancing Behavioral Utility via Scaling and Shifting $$V(t)$$
 
 The core insight behind applying scaling and shifting transformations to the value function $$V(t)$$ lies in how humans perceive rewards over time and how the model mathematically discounts future outcomes.
 By applying **scaling and shifting transformations** to the value function $$V(t)$$, we can turn a behavior that is originally *not attractive enough* into one that people want to do immediately — i.e., it gains a **huge boost in utility(U)** within the model.
 
----
 
-### Method 1: Increase the immediate value $$V(0)$$
+#### 7.1 Method 1: Increase the immediate value $$V(0)$$
 
 This is the most direct method. If a behavior's reward only happens in the future (e.g., "do well on an exam"), it’s hard to motivate immediate action.
 
 **Real-world examples:** 
 - Add an immediate reward — like earning stars after checking in, or enjoying a delicious smoothie right after exercising — effectively increasing $$V(0)$$.
 
-Mathematically:
+**Mathematically:**
 
 $$V(t) \to V(t) + \delta(t) \cdot R$$
 
 where $$\delta(t)$$ is the Dirac delta function (an instantaneous reward pulse at $$t=0$$).
 
-See the accompanying Python script [`immediate_reward.py`](./immediate_reward.py) for a dynamic visualization of how adding an immediate reward changes the utility curve over time.
+See the accompanying Python script [`1_immediate_reward.py`](./1_immediate_reward.py) for a dynamic visualization of how adding an immediate reward changes the utility curve over time.
 
----
 
-### Method 2: Time compression or bringing future rewards closer
+#### 7.2 Method 2: Time compression or bringing future rewards closer
 
-This is the most direct method. If a behavior's reward only happens in the future (e.g., "do well on an exam"), it’s hard to motivate immediate action.
+Some behaviors are hard to start because their rewards come too far in the future (e.g., exam results, weight loss, long-term savings). By mentally or structurally “previewing” these rewards earlier, we can make the behavior feel more worthwhile now.
 
 **Real-world examples:**
 - Getting instant positive AI feedback immediately after studying (even though the exam is later)
 - Seeing VO2max improvement data after running (before the visible body changes)
 
-Mathematically:
+**Mathematically:**
 
 Suppose the original function is: 
 
@@ -178,18 +172,19 @@ $$V'(t) = V_0 e^{-\lambda (t - \tau)}, \quad t \geq \tau$$
 
 Meaning: rewards that originally appear at day 10 now start previewing at day 3.
 
+See the Python script [`2_left_shift_reward.py`](./2-left_shift_reward.py) for an animated visualization of how left-shifting the value function boosts near-term utility.
 
----
 
-### Method 3: Compress the value function (increase compactness)
+#### 7.3 Method 3: Compress the value function (increase compactness)
 
-This is the most direct method. If a behavior's reward only happens in the future (e.g., "do well on an exam"), it’s hard to motivate immediate action.
+Rather than waiting for a distant reward to arrive, we can compress the timeline so that value is delivered in smaller, quicker chunks. This makes future rewards more immediate and keeps motivation alive.
 
-**Solution:** 
-For example:
+**Real-world examples:**
 
 - A week-long task broken into daily smaller tasks with daily feedback
 - This compression boosts motivation by making rewards more immediate
+
+**Mathematically:**
 
 Shift the function left by compressing time:
 
@@ -197,21 +192,16 @@ $$V'(t) = V(\alpha t), \quad 0 < \alpha < 1$$
 
 This releases future value earlier, capturing it before discounting reduces its impact.
 
-See the Python script [`time_compression.py`](./time_compression.py) for an animated visualization of how compressing time increases the perceived utility of future rewards.
+See the Python script [`3_time_compression.py`](./3_time_compression.py) for an animated visualization of how compressing time increases the perceived utility of future rewards.
 
-
----
-
-### Why this yields huge gains:
+#### 7.4 Why this yields huge gains:
 
 The discount function \(\frac{1}{1 + k t}\) is very steep near $$t \to 0$$.  
 Moving value slightly closer to the present greatly increases the total utility $$U$$.
 
 Even slightly bringing forward feedback can motivate someone to start a behavior they would otherwise avoid.
 
----
-
-### Summary (Behavior Design Perspective)
+#### 7.5 Summary (Behavior Design Perspective)
 
 We can greatly boost the *psychological utility* of a behavior by applying these interventions on $$V(t)$$:
 
