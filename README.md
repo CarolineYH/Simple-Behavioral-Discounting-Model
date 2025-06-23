@@ -32,8 +32,7 @@ Where:
 - $$k > 0$$: discount rate (larger means more short-sightedness)
 
 > _Alternative (simpler but less realistic):_  
-> Exponential discounting:  
-> $$W(t) = e^{-r t}$$
+> Exponential discounting:  $$W(t) = e^{-r t}$$
 
 #### 2.2 Expected Value Function $$V(t)$$
 
@@ -151,6 +150,23 @@ where $$\delta(t)$$ is the Dirac delta function (an instantaneous reward pulse a
 
 See the accompanying Python script [`1_immediate_reward.py`](./1_immediate_reward.py) for a dynamic visualization of how adding an immediate reward changes the utility curve over time.
 
+![immediate_reward_utility](https://github.com/user-attachments/assets/4b0933af-1f70-47c6-8c48-5cb7dde58044)
+
+**Effect on Utility Curve:**
+- Creates a sharp **spike at \( t = 0 \)** (where discounting is minimal).
+- Generates a **significant immediate boost in total utility**.
+- Very efficient for short-sighted individuals (high discount rate \( k \)).
+
+**Behavioral Insight:**
+- **Immediate gratification** is highly motivating.
+- Even small rewards now can outweigh larger rewards later.
+- Especially helpful for individuals with **ADHD** who struggle with delayed outcomes.
+
+**Limitation:**
+- Effect may be short-lived without future rewards.
+- Not sufficient for sustaining long-term motivation on its own.
+
+---
 
 #### 7.2 Method 2: Time compression or bringing future rewards closer
 
@@ -174,7 +190,25 @@ Meaning: rewards that originally appear at day 10 now start previewing at day 3.
 
 See the Python script [`2_left_shift_reward.py`](./2-left_shift_reward.py) for an animated visualization of how left-shifting the value function boosts near-term utility.
 
+![left_shift_utility](https://github.com/user-attachments/assets/b5bf57b8-f6aa-48ea-8f3d-b6fa56afe244)
 
+**Effect on Utility Curve:**
+- Moves the value curve **closer to the present**, increasing early utility.
+- Makes more of the value function fall under the high-weight region of \( W(t) \).
+- Results in a **smooth rise in utility** over time.
+
+**Behavioral Insight:**
+- Previewing success or progress helps make long-term goals feel real now.
+- Effective for **learning, fitness, or project tracking**.
+- Reduces frustration for ADHD individuals by **bridging feedback delays**.
+
+**Limitation:**
+- Requires mechanisms for early feedback or visualization (e.g., apps, simulations).
+- Not all outcomes can be meaningfully previewed early.
+
+
+
+---
 #### 7.3 Method 3: Compress the value function (increase compactness)
 
 Rather than waiting for a distant reward to arrive, we can compress the timeline so that value is delivered in smaller, quicker chunks. This makes future rewards more immediate and keeps motivation alive.
@@ -194,9 +228,29 @@ This releases future value earlier, capturing it before discounting reduces its 
 
 See the Python script [`3_time_compression.py`](./3_time_compression.py) for an animated visualization of how compressing time increases the perceived utility of future rewards.
 
+
+![time_compression_utility](https://github.com/user-attachments/assets/09bb0a7b-9f10-4850-8778-45cf72f6d0e2)
+
+
+**Effect on Utility Curve:**
+- The value curve becomes **more compact**, delivering value earlier.
+- Shifts utility density to regions where discounting is weaker.
+- Produces **more value sooner**, though more gradually than Method 1.
+
+**Behavioral Insight:**
+- Perfect for **task breakdown and micro-goal setting**.
+- Encourages momentum through frequent **small wins**.
+- Helps individuals with ADHD stay engaged by reducing time to reward.
+
+**Limitation:**
+- Requires task restructuring; can't compress everything (e.g., long-term biological outcomes).
+- Less dramatic boost than Method 1 but more sustainable.
+
+---
+
 #### 7.4 Why this yields huge gains:
 
-The discount function \(\frac{1}{1 + k t}\) is very steep near $$t \to 0$$.  
+The discount function $$\frac{1}{1 + k t}$$ is very steep near $$t \to 0$$.  
 Moving value slightly closer to the present greatly increases the total utility $$U$$.
 
 Even slightly bringing forward feedback can motivate someone to start a behavior they would otherwise avoid.
