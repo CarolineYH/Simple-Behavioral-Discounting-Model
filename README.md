@@ -148,7 +148,7 @@ $$V(t) \to V(t) + \delta(t) \cdot R$$
 
 where $$\delta(t)$$ is the Dirac delta function (an instantaneous reward pulse at $$t=0$$).
 
-See the accompanying Python script [`1_immediate_reward.py`](./1_immediate_reward.py) for a dynamic visualization of how adding an immediate reward changes the utility curve over time.
+See the accompanying Python script [`1_immediate_reward.py`](./1_immediate_reward.py) for the following dynamic visualization of how adding an immediate reward changes the utility curve over time.
 
 ![immediate_reward_utility](https://github.com/user-attachments/assets/4b0933af-1f70-47c6-8c48-5cb7dde58044)
 
@@ -188,7 +188,7 @@ $$V'(t) = V_0 e^{-\lambda (t - \tau)}, \quad t \geq \tau$$
 
 Meaning: rewards that originally appear at day 10 now start previewing at day 3.
 
-See the Python script [`2_left_shift_reward.py`](./2-left_shift_reward.py) for an animated visualization of how left-shifting the value function boosts near-term utility.
+See the Python script [`2_left_shift_reward.py`](./2-left_shift_reward.py) for the following animated visualization of how left-shifting the value function boosts near-term utility.
 
 ![left_shift_utility](https://github.com/user-attachments/assets/b5bf57b8-f6aa-48ea-8f3d-b6fa56afe244)
 
@@ -226,7 +226,7 @@ $$V'(t) = V(\alpha t), \quad 0 < \alpha < 1$$
 
 This releases future value earlier, capturing it before discounting reduces its impact.
 
-See the Python script [`3_time_compression.py`](./3_time_compression.py) for an animated visualization of how compressing time increases the perceived utility of future rewards.
+See the Python script [`3_time_compression.py`](./3_time_compression.py) for the following animated visualization of how compressing time increases the perceived utility of future rewards.
 
 
 ![time_compression_utility](https://github.com/user-attachments/assets/09bb0a7b-9f10-4850-8778-45cf72f6d0e2)
